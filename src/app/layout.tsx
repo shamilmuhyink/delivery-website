@@ -3,6 +3,8 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
+import ClientBody from '@/components/layout/ClientBody'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 
 export const metadata: Metadata = {
   title: 'UAE Delivery Express - Fast & Reliable Delivery Services',
@@ -30,13 +32,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr">
-      <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
+      <body className="min-h-screen flex flex-col" suppressHydrationWarning={true}>
+        <ScrollProgress />
+        <ClientBody>
+          <Header />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </ClientBody>
       </body>
     </html>
   )

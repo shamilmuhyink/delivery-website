@@ -1,11 +1,32 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FiMenu, FiX, FiTruck } from 'react-icons/fi'
+import { gsap } from 'gsap'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    // Animate header on load
+    gsap.fromTo('.header', 
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }
+    )
+
+    // Animate logo
+    gsap.fromTo('.logo', 
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.2 }
+    )
+
+    // Animate navigation items
+    gsap.fromTo('.nav-item', 
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.5 }
+    )
+  }, [])
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -17,11 +38,11 @@ const Header = () => {
   ]
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="header bg-white shadow-lg sticky top-0 z-50 opacity-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="logo flex items-center space-x-2 opacity-0">
             <FiTruck className="h-8 w-8 text-primary-600" />
             <span className="text-xl font-bold text-gray-900">
               UAE Delivery Express
@@ -34,7 +55,7 @@ const Header = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200"
+                className="nav-item text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200 opacity-0"
               >
                 {item.name}
               </Link>
@@ -42,7 +63,7 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <div className="nav-item hidden md:block opacity-0">
             <Link href="/contact" className="btn-primary">
               Get Quote
             </Link>
